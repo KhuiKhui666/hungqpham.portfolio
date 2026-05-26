@@ -3,155 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pham Quoc Hung | Portfolio</title>
+    <title>Pham Quoc Hung | The Marketer</title>
     <style>
         :root {
-            --bg-color: #f4f1ea;
-            --text-main: #4a4036;
-            --accent: #c4b5a5;
+            --bg-main: #f5f3ef; /* Be sáng */
+            --bg-darker: #e8e4d9; /* Be tối hơn chút để chia mảng */
+            --text-dark: #3a332a; /* Nâu đen tối giản */
+            --text-light: #7a6b5d;
+            --accent: #b09e8d;
         }
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 50px 20px;
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-dark);
+            line-height: 1.8;
+            overflow-x: hidden;
         }
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-            border-bottom: 1px solid var(--accent);
-            padding-bottom: 30px;
+
+        /* Typography */
+        h1, h2, h3 {
+            font-family: "Didot", "Bodoni MT", "Times New Roman", serif; /* Font chữ có chân tạo cảm giác tạp chí/nghệ thuật */
+            font-weight: normal;
         }
+
         h1 {
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-            font-size: 2.5em;
-        }
-        .subtitle {
-            font-style: italic;
-            color: #7a6b5d;
-        }
-        section {
-            margin-bottom: 40px;
-        }
-        h2 {
-            font-weight: 400;
+            font-size: 4vw;
+            letter-spacing: 3px;
             text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        /* Tạo gạch chân nghệ thuật cho Tiêu đề */
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            font-style: italic;
             letter-spacing: 1px;
-            border-left: 3px solid var(--accent);
-            padding-left: 10px;
-            margin-bottom: 20px;
         }
-        .item {
-            margin-bottom: 15px;
+
+        /* Layout */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .item-title {
-            font-weight: bold;
+
+        .section {
+            padding: 100px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
         }
-        .item-date {
-            float: right;
-            font-size: 0.9em;
-            color: #7a6b5d;
+
+        .section.reverse {
+            flex-direction: row-reverse;
         }
-        ul {
+
+        .text-block {
+            flex: 1;
+        }
+
+        .image-block {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Hiệu ứng ảnh đã tách nền */
+        .image-block img {
+            max-width: 100%;
+            height: auto;
+            /* Cái filter này sẽ tự động tạo viền bóng bám sát theo đường viền người mày (khi đã xóa nền) */
+            filter: drop-shadow(10px 15px 15px rgba(58, 51, 42, 0.2)); 
+            transition: transform 0.5s ease;
+        }
+
+        .image-block img:hover {
+            transform: scale(1.03) translateY(-10px);
+        }
+
+        /* Decor mảng màu nghệ thuật phía sau ảnh */
+        .image-block::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 400px;
+            background-color: var(--bg-darker);
+            border-radius: 200px 200px 0 0; /* Khối hình vòm cung */
+            z-index: -1;
+            bottom: 0;
+        }
+
+        /* List Styling */
+        .cv-item {
+            margin-bottom: 30px;
+            border-left: 1px solid var(--accent);
             padding-left: 20px;
-            margin-top: 5px;
+            position: relative;
         }
-        a {
-            color: var(--text-main);
-            text-decoration: none;
-            border-bottom: 1px solid var(--accent);
+        
+        .cv-item::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 10px;
+            width: 7px;
+            height: 7px;
+            background-color: var(--accent);
+            border-radius: 50%;
         }
-        a:hover {
-            color: #000;
+
+        .cv-title {
+            font-weight: bold;
+            font-size: 1.1rem;
         }
+
+        .cv-date {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+        ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 15px;
+        }
+        ul li::before {
+            content: '-';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Header Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: var(--bg-darker);
+        }
+
+        /* Scroll Animation Classes (Code JS sẽ kích hoạt mấy cái này) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 0.2s; }
+        .delay-2 { transition-delay: 0.4s; }
+
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>PHẠM QUỐC HƯNG</h1>
-        <p class="subtitle">Results-driven Marketer & Researcher</p>
-        <p>Hanoi, Vietnam | (+84) 336662855 | <a href="mailto:hunggpham06@gmail.com">hunggpham06@gmail.com</a></p>
+    <header class="hero">
+        <div class="container reveal">
+            <h1>Phạm Quốc Hưng</h1>
+            <p class="subtitle reveal delay-1">Results-driven Marketer & Researcher</p>
+            <p class="reveal delay-2" style="margin-top: 20px;">
+                Hanoi, Vietnam | (+84) 336662855 | hunggpham06@gmail.com
+            </p>
+        </div>
     </header>
 
-    <section>
-        <h2>Career Objective</h2>
-        <p>A results-driven marketer specializing in disruptive marketing strategy, backed by proven critical thinking and data analytics skills in marketing and consumer behavior research. Driven to direct distinctive brand growth and progress into MNCs' Management Trainee programs.</p>
-    </section>
+    <div class="container">
+        <section class="section">
+            <div class="text-block reveal">
+                <h2>The Vision</h2>
+                <p>A results-driven marketer specializing in disruptive marketing strategy, backed by proven critical thinking and data analytics skills in marketing and consumer behavior research. Driven to direct distinctive brand growth and progress into MNCs' Management Trainee programs.</p>
+                
+                <h2 style="margin-top: 50px;">Education</h2>
+                <div class="cv-item">
+                    <span class="cv-title">Foreign Trade University</span>
+                    <span class="cv-date">2024 - 2028</span>
+                    <p>International Business (High Quality Program)<br>GPA: 3.84/4.0 | IELTS: 7.5</p>
+                </div>
+            </div>
+            
+            <div class="image-block reveal delay-1">
+                <img src="ảnh_1.png" alt="Hung Pham - Blazer">
+            </div>
+        </section>
 
-    <section>
-        <h2>Education</h2>
-        <div class="item">
-            <span class="item-title">Foreign Trade University</span>
-            <span class="item-date">2024 - 2028</span>
-            <p>International Business (High Quality Program) | GPA: 3.84/4.0 | IELTS: 7.5</p>
-        </div>
-    </section>
+        <section class="section reverse">
+            <div class="text-block reveal">
+                <h2>Work Experience</h2>
+                
+                <div class="cv-item">
+                    <span class="cv-title">Marketing Specialist | InnoGate</span>
+                    <span class="cv-date">Oct 2024 - Feb 2026</span>
+                    <ul>
+                        <li>Co-orchestrated Project S4S, managing 39 career-orientation workshops nationwide.</li>
+                        <li>Conceptualized assets for 4 webinars, generating 3,000 registrations and 280,000 impressions.</li>
+                        <li>Co-authored a strategic funding proposal for YSEALI Seeds for the Future 2024.</li>
+                    </ul>
+                </div>
 
-    <section>
-        <h2>Awards & Certificates</h2>
-        <ul>
-            <li><strong>Top 10 Finalists</strong> - The Disruptor 2026 (MaC FTU)</li>
-            <li><strong>Third Prize</strong> - FTU Quang Ninh's Student Research Competition 2025</li>
-            <li><strong>Top 6</strong> - TEDxcellence 2024 (TEDx FTUHanoi)</li>
-            <li>Google Digital Marketing and E-commerce Certificate Program (GPA: 96.47%)</li>
-        </ul>
-    </section>
+                <div class="cv-item">
+                    <span class="cv-title">Marketing Intern | Smart Media JSC.</span>
+                    <span class="cv-date">May 2025 - Jul 2025</span>
+                    <ul>
+                        <li>Drafted a 1-year integrated marketing & branding roadmap for Smart Media Academy.</li>
+                        <li>Co-executed events and webinars for the "AI On Air 2025" series for Viettel AI.</li>
+                    </ul>
+                </div>
 
-    <section>
-        <h2>Work Experience</h2>
-        <div class="item">
-            <span class="item-title">Marketing Specialist | InnoGate</span>
-            <span class="item-date">Oct 2024 - Feb 2026</span>
-            <ul>
-                <li>Co-orchestrated Project S4S, managing 39 career-orientation workshops nationwide.</li>
-                <li>Conceptualized assets for 4 webinars, generating 3,000 registrations and 280,000 impressions.</li>
-            </ul>
-        </div>
-        <div class="item">
-            <span class="item-title">Marketing Intern | Smart Media JSC.</span>
-            <span class="item-date">May 2025 - Jul 2025</span>
-            <ul>
-                <li>Drafted a 1-year integrated marketing & branding roadmap for Smart Media Academy.</li>
-                <li>Co-executed events and webinars for the "AI On Air 2025" series for Viettel AI.</li>
-            </ul>
-        </div>
-        <div class="item">
-            <span class="item-title">Project Leader | Viet Beverage</span>
-            <span class="item-date">Mar 2025 - May 2025</span>
-            <ul>
-                <li>Spearheaded marketing campaigns, yielding 83.3% ROI and growing 650 organic followers in 30 days.</li>
-            </ul>
-        </div>
-    </section>
+                <div class="cv-item">
+                    <span class="cv-title">Project Leader | Viet Beverage</span>
+                    <span class="cv-date">Mar 2025 - May 2025</span>
+                    <ul>
+                        <li>Spearheaded marketing campaigns, yielding 83.3% ROI and growing 650 organic followers in 30 days.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="image-block reveal delay-1">
+                <img src="ảnh_2.png" alt="Hung Pham - Pink Hair">
+            </div>
+        </section>
 
-    <section>
-        <h2>Research Experience</h2>
-        <ul>
-            <li><strong>Co-author:</strong> Servant of Partner AI? The impact of AI Sycophancy... (Under review at JABES).</li>
-            <li><strong>Co-author:</strong> Disclose or Disguise? The moderating role of AI Transparency on Ad Credibility... (HCMC Open University Journal of Science).</li>
-            <li><strong>Co-author:</strong> The non-linear relationship between Perceived Personalization and Purchase Intention... (Vietnam Economic and Finance Review).</li>
-            <li><strong>Co-translator:</strong> Women and Trade: The role of Trade in promoting Gender Equality.</li>
-        </ul>
-    </section>
+        <section class="section" style="display: block;">
+            <div class="reveal">
+                <h2 style="text-align: center;">Research & Achievements</h2>
+            </div>
+            
+            <div style="display: flex; gap: 40px; margin-top: 40px; flex-wrap: wrap;">
+                <div class="text-block reveal delay-1" style="flex: 1; min-width: 300px;">
+                    <h3 style="margin-bottom: 20px; font-weight: bold; color: var(--accent);">Research Experience</h3>
+                    <ul>
+                        <li><strong>Co-author:</strong> Servant of Partner AI? The impact of AI Sycophancy... (Under review at JABES).</li>
+                        <li><strong>Co-author:</strong> Disclose or Disguise? The moderating role of AI Transparency on Ad Credibility... (HCMC Open University Journal of Science).</li>
+                        <li><strong>Co-author:</strong> The non-linear relationship between Perceived Personalization and Purchase Intention...</li>
+                        <li><strong>Co-translator:</strong> Women and Trade: The role of Trade in promoting Gender Equality.</li>
+                    </ul>
+                </div>
 
-    <section>
-        <h2>Skills</h2>
-        <p><strong>Marketing & Media:</strong> Brand Communication, Copywriting, Public Speaking, Photography</p>
-        <p><strong>Data Analytics:</strong> Scientific Research, SmartPLS 4, SPSS 27, AMOS 24, Stata</p>
-        <p><strong>Design:</strong> Adobe Photoshop, Canva, CapCut</p>
-    </section>
-</div>
+                <div class="text-block reveal delay-2" style="flex: 1; min-width: 300px;">
+                    <h3 style="margin-bottom: 20px; font-weight: bold; color: var(--accent);">Awards & Skills</h3>
+                    <ul>
+                        <li><strong>Top 10 Finalists</strong> - The Disruptor 2026 (MaC FTU)</li>
+                        <li><strong>Third Prize</strong> - FTU Student Research Competition 2025</li>
+                        <li><strong>Top 6</strong> - TEDxcellence 2024</li>
+                        <li>Google Digital Marketing and E-commerce Certificate</li>
+                    </ul>
+                    <div style="margin-top: 20px;">
+                        <p><strong>Tools & Skills:</strong> SmartPLS 4, SPSS, AMOS, Stata, Adobe Photoshop, Canva, CapCut, Brand Communication.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
+    <script>
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // Khoảng cách cách đáy màn hình để bắt đầu hiện
+
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        
+        // Chạy lần đầu khi vừa load trang
+        window.addEventListener("load", reveal);
+        // Chạy mỗi khi lướt chuột
+        window.addEventListener("scroll", reveal);
+    </script>
 </body>
 </html>
